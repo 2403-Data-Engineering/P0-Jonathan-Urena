@@ -34,7 +34,7 @@ Q) Quit
             case "1":
                 self.terminal.navigate(NewStudentMenu(self.terminal)) 
             case "2":
-                print("TODO: IMPLEMENT ME")
+                self.terminal.navigate(NewProfessorMenu(self.terminal))
             case "3":
                 print("TODO: IMPLEMENT ME")
             case "4":
@@ -65,5 +65,21 @@ New Student Menu
 
                 # new_student: Student = Student(first_name, last_name, major, email, year)
                 # self.terminal.student_service.save(new_student)
+
+                self.terminal.navigate(MainMenu(self.terminal))
+
+class NewProfessorMenu(Menu):
+    def render(self):
+                print("""
+===========================
+New Professor Menu
+""")
+                
+                print("First name: ")
+                first_name: str = input()
+                print("Last name: ")
+                last_name: str = input()
+                print("Email: ")
+                email: str = input()
 
                 self.terminal.navigate(MainMenu(self.terminal))
