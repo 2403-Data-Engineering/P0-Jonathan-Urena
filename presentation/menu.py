@@ -1,102 +1,151 @@
-from __future__ import annotations
-from abc import abstractmethod
-from typing import TYPE_CHECKING
+"""
+console_menu.py — A reusable console menu system for Python.
+
+Usage:
+    Run directly to see the demo, or import Menu/MenuItem into your own project.
+"""
+# ── helper classes ──────────────────────────────────────────────────────────────
+def pause(msg="Press Enter to continue..."):
+    input(f"\n{msg}")
 
 
+# ── core classes ──────────────────────────────────────────────────────────────
+import Presentation.submenuFunctions
+class MenuItem:
+    """A single entry in a Menu."""
 
-if TYPE_CHECKING:
-    from presentation.terminal import Terminal
+    def __init__(self, label: str, action=None, submenu=None):
+        """
+        Parameters
+        ----------
+        label   : Text shown in the menu.
+        action  : Callable executed when the item is selected (optional).
+        submenu : A Menu instance to navigate into (optional).
+                  If both action and submenu are given, action runs first.
+        """
+        self.label = label
+        self.action = action
+        self.submenu = submenu
+    
+    def run(self):
+        if self.action:
+            self.action()
+        elif self.submenu:
+            self.submenu.run()
+
 
 class Menu:
-    def __init__(self, terminal: Terminal):
-        self.terminal:Terminal = terminal
+    """
+    A navigable console menu.
 
-    @abstractmethod
-    def render() -> None:
-        pass
+    Parameters
+    ----------
+    title       : Heading printed above the options.
+    items       : List of MenuItem objects.
+    exit_label  : Label for the built-in back/quit option (default 'Back / Quit').
+    width       : Width of the decorative border (default 40).
+    clear_screen: Clear the terminal before each render (default True).
+    """
 
-
-class MainMenu(Menu):
-    def render(self) -> None:
-        print("""
-===========================
-Welcome to uRevature Admin
-1) Create new student
-2) Create new professor
-3) Create new class
-4) Enroll student in class
-5) Run report
-Q) Quit
-        """)
-
-        user_input: str = input().lower()
-        match user_input:
-            case "1":
-                self.terminal.navigate(NewStudentMenu(self.terminal)) 
-            case "2":
-                self.terminal.navigate(NewProfessorMenu(self.terminal))
-            case "3":
-                self.terminal.navigate(NewClassMenu(self.terminal))
-            case "4":
-                print("TODO: IMPLEMENT ME")
-            case "5":
-                print("TODO: IMPLEMENT ME")
-            case "q":
-                self.terminal.quit()
-
-class NewStudentMenu(Menu):
-    def render(self):
-                print("""
-===========================
-New Student Menu
-""")
-                
-                print("First name: ")
-                first_name: str = input()
-                print("Last name: ")
-                last_name: str = input()
-                print("Major: ")
-                major: str = input()
-                print("Email: ")
-                email: str = input()
-                print("Year: ")
-                year: str = input()
-                # Implement validation steps between prompts?
-
-                # new_student: Student = Student(first_name, last_name, major, email, year)
-                # self.terminal.student_service.save(new_student)
-
-                self.terminal.navigate(MainMenu(self.terminal))
-
-class NewProfessorMenu(Menu):
-    def render(self):
-                print("""
-===========================
-New Professor Menu
-""")
-                
-                print("First name: ")
-                first_name: str = input()
-                print("Last name: ")
-                last_name: str = input()
-                print("Email: ")
-                email: str = input()
-
-                self.terminal.navigate(MainMenu(self.terminal))
+    def __init__(
+        self,
+        title: str,
+        items: list,
+        exit_label: str = "Back / Quit",
+        width: int = 40,
+    ):
+        self.title = title
+        self.items = items
+        self.exit_label = exit_label
+        self.width = width
 
 
-class NewClassMenu(Menu):
-    def render(self):
-                print("""
-===========================
-New Class Menu
-""")
-                
-                print("Course Code: ")
-                course_code: str = input()
-                print("Name: ")
-                name: str = input()
-                print("Professor: ")
-                professor: str = input()
+    # ── rendering ────────────────────────────────────────────────────────────
 
-                self.terminal.navigate(MainMenu(self.terminal))
+    def _render(self):
+        
+
+        border = "─" * self.width
+        print(f"┌{border}┐")
+        print(f"│  {self.title:<{self.width - 2}}│")
+        print(f"├{border}┤")
+
+        for i, item in enumerate(self.items, start=1):
+            arrow = "▶ " if item.submenu else "  "
+            line = f"  {i}. {arrow}{item.label}"
+            print(f"│{line:<{self.width}}│")
+
+        print(f"│{'':>{self.width}}│")
+        zero_line = f"  0. {self.exit_label}"
+        print(f"│{zero_line:<{self.width}}│")
+        print(f"└{border}┘")
+
+    # ── input handling ────────────────────────────────────────────────────────
+
+    def get_choice(self):
+        try:
+            raw = input("\n  Select an option: ").strip()
+            value = int(raw)
+            if 0 <= value <= len(self.items):
+                return value
+            else:
+                print(f"  ⚠  Please enter a number between 0 and {len(self.items)}.")
+        except ValueError:
+            print("  ⚠  Invalid input — enter a number.")
+        return None
+
+    # ── main loop ─────────────────────────────────────────────────────────────
+
+    def run(self):
+        """Display the menu and block until the user exits."""
+        while True:
+            self._render()
+            choice = self.get_choice()
+
+            if choice is None:
+                pause()
+                continue
+
+            if choice == 0:
+                break
+
+            selected = self.items[choice - 1]
+            selected.run()
+            if not selected.submenu:
+                pause()
+
+
+def start():
+    """A quick demonstration of the menu system."""
+
+    # ── sub-menus ─────────────────────────────────────────────────────────────
+    
+    student_menu = Menu(
+        title="Manage Students",
+        items=[
+            MenuItem("Add Student", action=Presentation.submenuFunctions.addStudent),
+           
+        ],
+        exit_label="Back",
+    )
+
+    
+    
+
+    # ── root menu ─────────────────────────────────────────────────────────────
+
+    main_menu = Menu(
+        title="Main Menu  —  Demo",
+        items=[
+            MenuItem("Manage Students",       submenu=student_menu),
+            MenuItem("Information",),
+            
+        ],
+        exit_label="Quit",
+    )
+
+    main_menu.run()
+    print("  Goodbye!\n")
+
+
+#start()
