@@ -15,8 +15,8 @@ class Student:
         self.email = email
         self.year = year
     
-    # def getFirstName(self):
-    #     return self.first_name
+    def getFirstName(self):
+        return self.first_name
     
     # def getLastName(self):
     #     return self.last_name
