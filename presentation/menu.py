@@ -116,14 +116,29 @@ class Menu:
 
 
 def start():
-    """A quick demonstration of the menu system."""
-
     # ── sub-menus ─────────────────────────────────────────────────────────────
     
     student_menu = Menu(
         title="Manage Students",
         items=[
             MenuItem("Add Student", action=Presentation.submenuFunctions.addStudent),
+           
+        ],
+        exit_label="Back",
+    )
+    
+    professor_menu = Menu(
+        title="Manage Professors",
+        items=[
+            MenuItem("Add Professor", action=Presentation.submenuFunctions.addProfessor),
+           
+        ],
+        exit_label="Back",
+    )
+    class_menu = Menu(
+        title="Manage Classes",
+        items=[
+            MenuItem("Add Class", action=Presentation.submenuFunctions.addClass),
            
         ],
         exit_label="Back",
@@ -137,9 +152,9 @@ def start():
     main_menu = Menu(
         title="Main Menu  —  Demo",
         items=[
-            MenuItem("Manage Students",       submenu=student_menu),
-            MenuItem("Information",),
-            
+            MenuItem("Manage Students",submenu=student_menu),
+            MenuItem("Manage Professors",submenu=professor_menu),
+            MenuItem("Manage Classes",submenu=class_menu),
         ],
         exit_label="Quit",
     )
