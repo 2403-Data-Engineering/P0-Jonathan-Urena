@@ -116,8 +116,10 @@ def start():
     student_menu = Menu(
         title="Manage Students",
         items=[
+            MenuItem("View All Students", action=Presentation.submenuFunctions.viewAllStudents),
             MenuItem("Add Student", action=Presentation.submenuFunctions.addStudent),
-           
+            MenuItem("Update Student", action=Presentation.submenuFunctions.updateStudent),
+            MenuItem("Delete Student", action=Presentation.submenuFunctions.deleteStudent),
         ],
         exit_label="Back",
     )
