@@ -1,9 +1,4 @@
-"""
-console_menu.py — A reusable console menu system for Python.
 
-Usage:
-    Run directly to see the demo, or import Menu/MenuItem into your own project.
-"""
 # ── helper classes ──────────────────────────────────────────────────────────────
 def pause(msg="Press Enter to continue..."):
     input(f"\n{msg}")
@@ -26,6 +21,7 @@ class MenuItem:
         self.label = label
         self.action = action
         self.submenu = submenu
+        
     
     def run(self):
         if self.action:
@@ -44,7 +40,6 @@ class Menu:
     items       : List of MenuItem objects.
     exit_label  : Label for the built-in back/quit option (default 'Back / Quit').
     width       : Width of the decorative border (default 40).
-    clear_screen: Clear the terminal before each render (default True).
     """
 
     def __init__(

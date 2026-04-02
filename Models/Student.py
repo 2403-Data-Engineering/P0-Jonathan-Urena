@@ -2,13 +2,15 @@ from dataclasses import dataclass
 
 @dataclass
 class Student:
+    id:str
     first_name: str
     last_name: str
     major: str
     email: str
     year: str
-
+    #Need to get id from database
     def __init__(self,first_name: str,last_name: str,major: str,email: str,year: str):
+        self.id = 0
         self.first_name = first_name
         self.last_name = last_name
         self.major = major
