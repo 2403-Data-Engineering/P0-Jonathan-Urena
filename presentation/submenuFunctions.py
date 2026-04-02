@@ -7,6 +7,7 @@ student_service = StudentService()
 def viewAllStudents():
     studentsList = []
     print("All Students List")
+
     #student_service.findAll()
 
 def addStudent():
@@ -25,7 +26,6 @@ def addStudent():
         return addStudent()
     new_student = Student(first_name,last_name,major,email,year)
     student_service.save(new_student)
-    return 
 
 def updateStudent():
     try:
@@ -46,7 +46,27 @@ def deleteStudent():
         print("  ⚠  Invalid input — enter a number.")
         return deleteStudent()
     #call service
-    
+
+def viewClassesStudentEnrolled():
+    try:
+        print("Enter the student's id to view all classes enrolled in")
+        raw = input().strip()
+        student_id = int(raw)
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return viewClassesStudentEnrolled()
+    #call service
+
+def generateStudentEnrollmentReport():
+    try:
+        print("Enter the student's id to generate a report of all classes enrolled in")
+        raw = input().strip()
+        student_id = int(raw)
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return generateStudentEnrollmentReport()
+    #call service
+
 # ── Professor methods────────────────────────────────────────────────────────────
 def addProfessor():
     print("First name: ")

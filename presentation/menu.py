@@ -120,6 +120,8 @@ def start():
             MenuItem("Add Student", action=Presentation.submenuFunctions.addStudent),
             MenuItem("Update Student", action=Presentation.submenuFunctions.updateStudent),
             MenuItem("Delete Student", action=Presentation.submenuFunctions.deleteStudent),
+            MenuItem("View Classes Student Enrolled In", action=Presentation.submenuFunctions.viewClassesStudentEnrolled),
+            MenuItem("Generate Report Of Classes Student Enrolled In", action=Presentation.submenuFunctions.generateStudentEnrollmentReport),
         ],
         exit_label="Back",
     )
