@@ -58,6 +58,32 @@ def viewClassesStudentEnrolled():
         return viewClassesStudentEnrolled()
     #call service
 
+def enrollStudentInClass():
+    try:
+        print("Enter the student's id to enroll")
+        raw = input().strip()
+        student_id = int(raw)
+        print("Enter the id of the class to enroll: ")
+        raw = input().strip()
+        class_id = int(raw)
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return enrollStudentInClass()
+    print("Success")
+
+def dropStudentInClass():
+    try:
+        print("Enter the student's id to drop")
+        raw = input().strip()
+        student_id = int(raw)
+        print("Enter the id of the class to drop: ")
+        raw = input().strip()
+        class_id = int(raw)
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return enrollStudentInClass()
+    print("Success")
+
 def generateStudentEnrollmentReport():
     try:
         print("Enter the student's id to generate a report of all classes enrolled in")

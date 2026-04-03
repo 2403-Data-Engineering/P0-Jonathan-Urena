@@ -120,6 +120,8 @@ def start():
             MenuItem("Add Student", action=Presentation.submenuFunctions.addStudent),
             MenuItem("Update Student", action=Presentation.submenuFunctions.updateStudent),
             MenuItem("Delete Student", action=Presentation.submenuFunctions.deleteStudent),
+            MenuItem("Enroll Student In Class", action=Presentation.submenuFunctions.enrollStudentInClass),
+            MenuItem("Drop Student From Class", action=Presentation.submenuFunctions.dropStudentInClass),
             MenuItem("View Classes Student Enrolled In", action=Presentation.submenuFunctions.viewClassesStudentEnrolled),
             MenuItem("Generate Report Of Classes Student Enrolled In", action=Presentation.submenuFunctions.generateStudentEnrollmentReport),
         ],
@@ -143,6 +145,7 @@ def start():
             MenuItem("View All Classes", action=Presentation.submenuFunctions.viewAllClasses),
             MenuItem("Add Class", action=Presentation.submenuFunctions.addClass),
             MenuItem("Update Class", action=Presentation.submenuFunctions.updateClass),
+            MenuItem("Delete Class", action=Presentation.submenuFunctions.deleteClass),
            
         ],
         exit_label="Back",
