@@ -129,15 +129,20 @@ def start():
     professor_menu = Menu(
         title="Manage Professors",
         items=[
+            MenuItem("View All Professors", action=Presentation.submenuFunctions.viewAllProfessors),
             MenuItem("Add Professor", action=Presentation.submenuFunctions.addProfessor),
-           
+            MenuItem("Update Professor", action=Presentation.submenuFunctions.updateProfessor),
+            MenuItem("Delete Professor", action=Presentation.submenuFunctions.deleteProfessor),
+            MenuItem("Generate Report Of Classes Professor Teaching", action=Presentation.submenuFunctions.generateProfessorReport),
         ],
         exit_label="Back",
     )
     class_menu = Menu(
         title="Manage Classes",
         items=[
+            MenuItem("View All Classes", action=Presentation.submenuFunctions.viewAllClasses),
             MenuItem("Add Class", action=Presentation.submenuFunctions.addClass),
+            MenuItem("Update Class", action=Presentation.submenuFunctions.updateClass),
            
         ],
         exit_label="Back",
