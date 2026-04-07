@@ -1,14 +1,17 @@
 import os
+import mysql.connector
 from dotenv import load_dotenv
-import mysql
+
+from mysql.connector import Error
 
 load_dotenv()
 
 def get_connection():
     return mysql.connector.connect(
-        host=os.getenv("HOST"),
-        port=os.getenv("PORT"),
-        user=os.getenv("USER"),
-        password=os.getenv("PASSWORD"),
+        host=os.getenv("DB_HOST"),
+        port=os.getenv("DB_PORT"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASS"),
         database=os.getenv("DB")
+       
     )
