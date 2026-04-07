@@ -26,7 +26,7 @@ def addStudent():
         print("Error: No field can be left blank")
         return addStudent()
     new_student = Student(first_name,last_name,major,email,year)
-    student_service.save(new_student)
+    print(student_service.save(new_student))
 
 def updateStudent():
     try:
