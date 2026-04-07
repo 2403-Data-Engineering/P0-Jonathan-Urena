@@ -2,6 +2,8 @@ from Models.Student import Student
 from Models.Professor import Professor
 from Models.Class import Class
 from Service.StudentService import StudentService
+from Service.ProfessorService import ProfessorService
+professor_service = ProfessorService()
 student_service = StudentService()
 
 # ── Student methods────────────────────────────────────────────────────────────
@@ -136,11 +138,8 @@ def addProfessor():
         print("Error: No field can be left blank")
         return addProfessor()
     new_professor = Professor(first_name,last_name,department,email)
-
-    print(new_professor)
-    # Implement validation steps between prompts?
-    # new_student: Student = Student(first_name, last_name, major, email, year)
-    # self.terminal.student_service.save(new_student)
+    professor_service.save(new_professor)
+    
 
 def updateProfessor():
     try:
