@@ -33,7 +33,27 @@ def updateStudent():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return updateStudent()
-    #call service
+   
+    if student_service.findById(student_id) == None:
+        print("Error: Id does not exist in database")
+        return updateStudent()
+    else:
+        print("Enter Updated Information")
+        print("First name: ")
+        first_name: str = input().strip()
+        print("Last name: ")
+        last_name: str = input().strip()
+        print("Major: ")
+        major: str = input().strip()
+        print("Email: ")
+        email: str = input().strip()
+        print("Year: ")
+        year: str = input().strip()
+        if len(first_name)==0 or len(last_name)==0 or len(major)==0 or len(email)==0 or len(year)==0:
+            print("Error: No field can be left blank")
+            return addStudent()
+        updated_student = Student(first_name,last_name,major,email,year)
+        student_service.updateById(student_id,updated_student)
     
 def deleteStudent():
     try:

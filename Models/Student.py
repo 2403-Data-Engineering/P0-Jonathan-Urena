@@ -47,3 +47,6 @@ class Student:
     def getYear(self):
         return self.year
     
+    def setId(self,id):
+        self.id = id
+    

@@ -26,3 +26,13 @@ def create_student(student:Student) -> Student:
         conn.commit()
     
 
+def update_student(student: Student) -> Student:
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """UPDATE students 
+               SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, major=%(major)s, year=%(year)s 
+               WHERE id=%(id)s""",
+            student.__dict__
+        )
+        conn.commit()
