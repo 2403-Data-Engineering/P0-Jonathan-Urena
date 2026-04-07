@@ -6,10 +6,7 @@ student_service = StudentService()
 
 # ── Student methods────────────────────────────────────────────────────────────
 def viewAllStudents():
-    studentsList = []
-    print("All Students List")
-
-    #student_service.findAll()
+    student_service.findAll()
 
 def addStudent():
     print("First name: ")
@@ -26,7 +23,7 @@ def addStudent():
         print("Error: No field can be left blank")
         return addStudent()
     new_student = Student(first_name,last_name,major,email,year)
-    print(student_service.save(new_student))
+    student_service.save(new_student)
 
 def updateStudent():
     try:

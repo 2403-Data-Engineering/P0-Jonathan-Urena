@@ -26,7 +26,7 @@ class MenuItem:
     def run(self):
         if self.action:
             self.action()
-        elif self.submenu:
+        if self.submenu:
             self.submenu.run()
 
 
