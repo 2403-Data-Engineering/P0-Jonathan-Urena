@@ -36,3 +36,9 @@ def update_student(student: Student) -> Student:
             student.__dict__
         )
         conn.commit()
+
+def delete_student(id: int) -> None:
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("DELETE FROM students WHERE id=%(id)s", {"id": id})
+        conn.commit()

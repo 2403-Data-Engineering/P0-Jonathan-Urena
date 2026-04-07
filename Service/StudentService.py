@@ -27,6 +27,12 @@ class StudentService:
         updated_student.setId(get_id)
         
         StudentDAO.update_student(updated_student)
+
+    def deleteById(self,id:int):
+        get_id = self.findById(id)
+        if not get_id:
+            return None
+        StudentDAO.delete_student(id)
         
         
     #Create findById

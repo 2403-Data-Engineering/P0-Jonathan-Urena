@@ -56,6 +56,7 @@ def updateStudent():
         student_service.updateById(student_id,updated_student)
     
 def deleteStudent():
+    #TODO prevent deleting if enrolled in class
     try:
         print("Enter the student's id to delete")
         raw = input().strip()
@@ -63,8 +64,12 @@ def deleteStudent():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return deleteStudent()
-    #call service
-
+   
+    if student_service.findById(student_id) == None:
+        print("Error: Id does not exist in database")
+        return deleteStudent()
+    else:
+        student_service.deleteById(student_id)
 def viewClassesStudentEnrolled():
     try:
         print("Enter the student's id to view all classes enrolled in")
