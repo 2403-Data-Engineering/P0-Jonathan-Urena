@@ -43,8 +43,8 @@ def update_classes(classes: Classes) -> Classes:
     with db_connection_manager.get_connection() as conn:
         cursor = conn.cursor(dictionary=True)
         cursor.execute(
-            """UPDATE classess 
-               SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, major=%(major)s, year=%(year)s 
+            """UPDATE classes
+               SET class_name=%(class_name)s, assigned_professor=%(professor_id)s 
                WHERE id=%(id)s""",
             classes.__dict__
         )
@@ -53,5 +53,5 @@ def update_classes(classes: Classes) -> Classes:
 def delete_classes(id: int) -> None:
     with db_connection_manager.get_connection() as conn:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("DELETE FROM classess WHERE id=%(id)s", {"id": id})
+        cursor.execute("DELETE FROM classes WHERE id=%(id)s", {"id": id})
         conn.commit()

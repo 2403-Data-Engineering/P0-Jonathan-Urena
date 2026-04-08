@@ -44,7 +44,7 @@ def update_professor(professor: Professor) -> Professor:
         cursor = conn.cursor(dictionary=True)
         cursor.execute(
             """UPDATE professors 
-               SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, major=%(major)s, year=%(year)s 
+               SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, dept=%(department)s 
                WHERE id=%(id)s""",
             professor.__dict__
         )

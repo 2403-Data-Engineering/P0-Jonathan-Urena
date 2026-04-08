@@ -159,10 +159,27 @@ def updateProfessor():
         print("Enter the professor's id to update")
         raw = input().strip()
         professor_id = int(raw)
-        print(professor_id)
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return updateProfessor()
+   
+    if professor_service.findById(professor_id) == None:
+        print("Error: Id does not exist in database")
+        return updateProfessor()
+    else:
+        print("First name: ")
+        first_name: str = input().strip()
+        print("Last name: ")
+        last_name: str = input().strip()
+        print("Department: ")
+        department: str = input().strip()
+        print("Email: ")
+        email: str = input().strip()
+        if len(first_name)==0 or len(last_name)==0 or len(department)==0 or len(email)==0:
+            print("Error: No field can be left blank")
+            return updateProfessor()
+        new_professor = Professor(first_name,last_name,department,email)
+        professor_service.updateById(professor_id,new_professor)
 
 def deleteProfessor():
     try:
@@ -228,19 +245,36 @@ def updateClass():
         print("Enter the id of the class to update: ")
         raw = input().strip()
         class_id = int(raw)
-        print("Id of professor to assign to class: ")
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return updateClass()
+    print("Class name: ")
+    class_name: str = input().strip()
+    if len(class_name)==0:
+        print("Error: Class name can not be left blank")
+        return updateClass()
+    try:
+        print("Id of professor to assign class: ")
         raw = input().strip()
         professor_id = int(raw)
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return updateClass()
+    if classes_service.findById(class_id)== None or professor_service.findById(professor_id) == None:
+        print("Error: Id does not exist in database")
+        return updateClass()
+    new_class = Classes(class_name,professor_id)
+    classes_service.updateById(class_id,new_class)
     
 def deleteClass():
     try:
         print("Enter the id of the class to delete: ")
         raw = input().strip()
         class_id = int(raw)
-        
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return deleteClass()
+    if classes_service.findById(class_id)== None:
+        print("Error that class id is registered")
+        return deleteClass
+    classes_service.deleteById(class_id)
