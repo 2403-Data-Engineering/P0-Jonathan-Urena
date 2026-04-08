@@ -22,8 +22,16 @@ def get_student_by_id(id: int) -> str:
 def get_enrollment(student_id:int):
     with db_connection_manager.get_connection() as conn:
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM student_courses WHERE student_id=%s",[student_id])
-        return cursor.fetchone()
+        cursor.execute(
+            """
+            SELECT classes.class_name
+            FROM classes
+            JOIN student_courses ON classes.id = student_courses.class_id
+            WHERE student_courses.student_id = %(student_id)s
+            """,
+            {"student_id":student_id}
+        )
+        return cursor.fetchall()
 
 def create_student(student:Student) -> Student:
     with db_connection_manager.get_connection() as conn:

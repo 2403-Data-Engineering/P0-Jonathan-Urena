@@ -188,6 +188,19 @@ def generateProfessorReport():
 def viewAllClasses():
     classes_service.findAll()
 
+def viewAllStudentsEnrolled():
+    try:
+        print("Id of class to view students: ")
+        raw = input().strip()
+        class_id = int(raw)
+    except ValueError:
+        print("  ⚠  Invalid input — enter a number.")
+        return viewAllStudentsEnrolled()
+    if classes_service.findById(class_id) == None:
+        print("Error: Class id does not exist in database")
+        return viewAllStudentsEnrolled()
+    classes_service.findAllEnrolled(class_id)
+
 def addClass():
     print("Class name: ")
     class_name: str = input().strip()

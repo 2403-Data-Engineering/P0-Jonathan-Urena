@@ -143,6 +143,7 @@ def start():
         title="Manage Classes",
         items=[
             MenuItem("View All Classes", action=Presentation.submenuFunctions.viewAllClasses),
+            MenuItem("View All Students Enrolled in Class", action=Presentation.submenuFunctions.viewAllStudentsEnrolled),
             MenuItem("Add Class", action=Presentation.submenuFunctions.addClass),
             MenuItem("Update Class", action=Presentation.submenuFunctions.updateClass),
             MenuItem("Delete Class", action=Presentation.submenuFunctions.deleteClass),

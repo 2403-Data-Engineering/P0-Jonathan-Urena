@@ -19,6 +19,19 @@ def get_classes_by_id(id: int) -> str:
         return cursor.fetchone()
     #returns dict
 
+def get_student_enrolled(class_id:int):
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT students.first_name,students.last_name
+            FROM students
+            JOIN student_courses
+            ON students.id = student_courses.student_id 
+            WHERE student_courses.class_id =%s""",[class_id])
+        
+        return cursor.fetchall()
+
 def create_classes(classes:Classes) -> Classes:
     with db_connection_manager.get_connection() as conn:
         cursor = conn.cursor(dictionary=True)

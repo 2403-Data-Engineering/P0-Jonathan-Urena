@@ -11,6 +11,10 @@ class ClassesService:
     def findAll(self):
         ClassesDAO.get_all_classes()
 
+    def findAllEnrolled(self,id:int):
+        result = ClassesDAO.get_student_enrolled(id)
+        print(result)
+
 #Returns true if found in table or false otherwise
     def findById(self,id:int) -> Classes:
         result = ClassesDAO.get_classes_by_id(id)
