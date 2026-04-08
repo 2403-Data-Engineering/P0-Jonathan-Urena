@@ -42,3 +42,35 @@ def delete_student(id: int) -> None:
         cursor = conn.cursor(dictionary=True)
         cursor.execute("DELETE FROM students WHERE id=%(id)s", {"id": id})
         conn.commit()
+
+def enroll_in_class(student_id:int,class_id:int):
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("INSERT INTO student_courses (student_id,class_id) VALUES (%(student_id)s, %(class_id)s)",{
+            "student_id": student_id,
+            "class_id": class_id
+        })
+        conn.commit()
+
+def drop_in_class(student_id:int,class_id:int):
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("DELETE FROM student_courses WHERE student_id=%(student_id)s AND class_id=%(class_id)s",{
+            "student_id": student_id,
+            "class_id": class_id
+        })
+        conn.commit()
+
+def get_student_classes(student_id: int):
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT classes.class_name
+            FROM classes
+            JOIN student_courses ON classes.id = student_courses.class_id
+            WHERE student_courses.student_id = %(student_id)s
+            """,
+            {"student_id":student_id}
+        )
+        return cursor.fetchall()

@@ -10,6 +10,10 @@ class StudentService:
     
     def findAll(self):
         StudentDAO.get_all_students()
+    
+    def findAllClasses(self,id:int):
+        result = StudentDAO.get_student_classes(id)
+        print(result)
 
 #Returns true if found in table or false otherwise
     def findById(self,id:int) -> Student:
@@ -33,6 +37,13 @@ class StudentService:
         if not get_id:
             return None
         StudentDAO.delete_student(id)
+
+
+    def enroll(self,student_id:int,class_id:int):
+        StudentDAO.enroll_in_class(student_id,class_id)
+    
+    def drop(self,student_id:int,class_id:int):
+        StudentDAO.drop_in_class(student_id,class_id)
         
         
     #Create findById

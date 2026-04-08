@@ -1,10 +1,13 @@
 from Models.Student import Student
 from Models.Professor import Professor
-from Models.Class import Class
+from Models.Classes import Classes
 from Service.StudentService import StudentService
 from Service.ProfessorService import ProfessorService
+from Service.ClassesService import ClassesService
+
 professor_service = ProfessorService()
 student_service = StudentService()
+classes_service = ClassesService()
 
 # ── Student methods────────────────────────────────────────────────────────────
 def viewAllStudents():
@@ -80,7 +83,10 @@ def viewClassesStudentEnrolled():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return viewClassesStudentEnrolled()
-    #call service
+    if student_service.findById(student_id) == None:
+        print("Error: Id does not exist in database")
+        return viewClassesStudentEnrolled()
+    student_service.findAllClasses(student_id)
 
 def enrollStudentInClass():
     try:
@@ -93,7 +99,10 @@ def enrollStudentInClass():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return enrollStudentInClass()
-    print("Success")
+    if student_service.findById(student_id) == None or classes_service.findById(class_id) == None:
+        print("Error: Id does not exist in database")
+        return enrollStudentInClass()
+    student_service.enroll(student_id,class_id)
 
 def dropStudentInClass():
     try:
@@ -105,8 +114,11 @@ def dropStudentInClass():
         class_id = int(raw)
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
-        return enrollStudentInClass()
-    print("Success")
+        return dropStudentInClass()
+    if student_service.findById(student_id) == None or classes_service.findById(class_id) == None:
+        print("Error: Id does not exist in database")
+        return dropStudentInClass()
+    student_service.drop(student_id,class_id)
 
 def generateStudentEnrollmentReport():
     try:
@@ -120,8 +132,7 @@ def generateStudentEnrollmentReport():
 
 # ── Professor methods────────────────────────────────────────────────────────────
 def viewAllProfessors():
-    professorsList = []
-    print("All Professors List")
+    professor_service.findAll()
 
     #student_service.findAll()
 
@@ -172,14 +183,14 @@ def generateProfessorReport():
     #call service
 # ── Class methods────────────────────────────────────────────────────────────
 def viewAllClasses():
-    classList = []
-    print("All Class List")
-
-    #class_service.findAll()
+    classes_service.findAll()
 
 def addClass():
     print("Class name: ")
     class_name: str = input().strip()
+    if len(class_name)==0:
+        print("Error: Class name can not be left blank")
+        return addClass()
     try:
         print("Id of professor to assign class: ")
         raw = input().strip()
@@ -187,11 +198,12 @@ def addClass():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return addClass()
-    if len(class_name)==0:
-        print("Error: Class name can not be left blank")
+    if professor_service.findById(professor_id) == None:
+        print("Error: Id does not exist in database")
         return addClass()
-    new_class = Class(class_name)
-    print(new_class)
+    
+    new_class = Classes(class_name,professor_id)
+    classes_service.save(new_class)
     
 def updateClass():
     try:
