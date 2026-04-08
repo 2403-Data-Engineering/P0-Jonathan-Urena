@@ -11,10 +11,16 @@ class ProfessorService:
     def findAll(self):
         ProfessorDAO.get_all_professors()
 
+    def findTeaching(self,id:int) -> bool:
+        result = ProfessorDAO.get_teaching(id)
+        if not result:
+            return None
+        return True
+
+
 #Returns true if found in table or false otherwise
     def findById(self,id:int) -> Professor:
         result = ProfessorDAO.get_professor_by_id(id)
-        
         if not result:
             return None
         #found_professor = Professor(result["first_name"],result["last_name"],result["email"],result["major"],result["year"],result["id"])

@@ -61,7 +61,6 @@ def updateStudent():
         student_service.updateById(student_id,updated_student)
     
 def deleteStudent():
-    #TODO prevent deleting if enrolled in class
     try:
         print("Enter the student's id to delete")
         raw = input().strip()
@@ -170,10 +169,13 @@ def deleteProfessor():
         print("Enter the professor's id to delete")
         raw = input().strip()
         professor_id = int(raw)
-        print(professor_id)
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return deleteProfessor()
+    if professor_service.findTeaching(professor_id) == True:
+        print("Professor is still teaching thus cannot be deleted")
+        return deleteProfessor()
+    professor_service.deleteById(professor_id)
     
 def generateProfessorReport():
     try:

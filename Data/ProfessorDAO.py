@@ -19,6 +19,19 @@ def get_professor_by_id(id: int) -> str:
         return cursor.fetchone()
     #returns dict
 
+def get_teaching(id:int):
+    with db_connection_manager.get_connection() as conn:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT class_name
+            FROM classes
+            WHERE assigned_professor = %s
+            """,
+           [id]
+        )
+        return cursor.fetchall()
+
 def create_professor(professor:Professor) -> Professor:
     with db_connection_manager.get_connection() as conn:
         cursor = conn.cursor(dictionary=True)
