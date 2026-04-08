@@ -73,8 +73,11 @@ def deleteStudent():
     if student_service.findById(student_id) == None:
         print("Error: Id does not exist in database")
         return deleteStudent()
-    else:
-        student_service.deleteById(student_id)
+    if student_service.findEnrollment(student_id) == True:
+        print("Student is currently in classes thus cannot be deleted")
+        return deleteStudent()
+    
+    student_service.deleteById(student_id)
 def viewClassesStudentEnrolled():
     try:
         print("Enter the student's id to view all classes enrolled in")
