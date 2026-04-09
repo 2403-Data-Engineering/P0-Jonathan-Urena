@@ -13,19 +13,19 @@ class ReportGenerator:
         md.new_header(level=1, title='Student Info')
         md.new_paragraph(f"Student ID:{student_result["id"]} | First Name: {student_result["first_name"]} | Last Name: {student_result["last_name"]} | Major: {student_result["major"]} | Year: {student_result["year"]}\nEmail: {student_result["email"]}")
         md.new_header(level=1, title='Course Info')
-        table = ["Class ID","Class Name","First Name","Last Name"]
+        table = ["Class ID","Class Name","Professor"]
         class_rows = len(classes_result)
         
         for i in range(0,len(classes_result)):
             table.append(classes_result[i]["id"])
             table.append(classes_result[i]["class_name"])
-            table.append(classes_result[i]["first_name"])
-            table.append(classes_result[i]["last_name"])
+            table.append(classes_result[i]["first_name"] + " " + classes_result[i]["last_name"]) 
+            
 
 
        
         
-        md.new_table(columns=4, rows=class_rows+1, text=table, text_align='center')
+        md.new_table(columns=3, rows=class_rows+1, text=table, text_align='center')
         
         md.create_md_file()
         
