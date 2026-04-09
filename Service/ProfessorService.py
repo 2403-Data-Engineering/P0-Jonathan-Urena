@@ -48,3 +48,9 @@ class ProfessorService:
             return None
         return result
     
+    def getProfessorClasses(self,id:int) -> int:
+        result = ProfessorDAO.get_teaching(id)
+        if not result:
+            return None
+        return result
+    

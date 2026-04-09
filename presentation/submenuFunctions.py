@@ -227,7 +227,7 @@ def viewAllStudentsEnrolled():
     if classes_service.findById(class_id) == None:
         print("Error: Class id does not exist in database")
         return viewAllStudentsEnrolled()
-    classes_service.findAllEnrolled(class_id)
+    print(classes_service.findAllEnrolled(class_id))
 
 def addClass():
     print("Class name: ")
