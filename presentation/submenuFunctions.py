@@ -194,7 +194,7 @@ def deleteProfessor():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return deleteProfessor()
-    if professor_service.findTeaching(professor_id) == True:
+    if professor_service.findTeaching(professor_id) != None:
         print("Professor is still teaching thus cannot be deleted")
         return deleteProfessor()
     professor_service.deleteById(professor_id)
@@ -207,7 +207,11 @@ def generateProfessorReport():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return generateProfessorReport()
-    #call service
+    if professor_service.findById(professor_id) == None:
+        print("Error: Id does not exist in database")
+        return generateProfessorReport()
+    utils.generateProfessorReport(professor_id)
+
 # ── Class methods────────────────────────────────────────────────────────────
 def viewAllClasses():
     classes_service.findAll()

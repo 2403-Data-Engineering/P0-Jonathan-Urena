@@ -11,11 +11,12 @@ class ProfessorService:
     def findAll(self):
         ProfessorDAO.get_all_professors()
 
-    def findTeaching(self,id:int) -> bool:
+    #returns id and class_name of all courses teaching
+    def findTeaching(self,id:int) -> list[dict]:
         result = ProfessorDAO.get_teaching(id)
         if not result:
             return None
-        return True
+        return result
 
 
 #Returns true if found in table or false otherwise
@@ -40,7 +41,10 @@ class ProfessorService:
             return None
         ProfessorDAO.delete_professor(id)
         
-        
-    #Create findById
-    #Use findById to create delete/update By Id
+    #returns professor info
+    def getProfessorById(self,id:int) -> int:
+        result = ProfessorDAO.get_professor_by_id(id)
+        if not result:
+            return None
+        return result
     

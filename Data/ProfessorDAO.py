@@ -24,7 +24,7 @@ def get_teaching(id:int):
         cursor = conn.cursor(dictionary=True)
         cursor.execute(
             """
-            SELECT class_name
+            SELECT id,class_name
             FROM classes
             WHERE assigned_professor = %s
             """,
