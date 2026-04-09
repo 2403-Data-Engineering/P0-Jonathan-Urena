@@ -5,18 +5,9 @@ Professor Course Report
 # Professor Info
 
 
-Professor ID:1 | First Name: Michael | Last Name: Rogers
+Professor ID:5 | First Name: Mary | Last Name: SHelley
 # Classes Info
 
-## Class :Math
+## Class :British Lit
 
 ### Students Enrolled
-
-
-Name :Jonathan Urena
-## Class :Chemistry
-
-### Students Enrolled
-
-
-Name :Jonathan Urena

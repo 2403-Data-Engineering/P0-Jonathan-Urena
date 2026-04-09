@@ -57,23 +57,15 @@ class Menu:
 
     # ── rendering ────────────────────────────────────────────────────────────
 
-    def _render(self):
-        
-
-        border = "─" * self.width
-        print(f"┌{border}┐")
-        print(f"│  {self.title:<{self.width - 2}}│")
-        print(f"├{border}┤")
-
+    def render(self):
+ 
+        print(self.title)
         for i, item in enumerate(self.items, start=1):
             arrow = "▶ " if item.submenu else "  "
             line = f"  {i}. {arrow}{item.label}"
-            print(f"│{line:<{self.width}}│")
-
-        print(f"│{'':>{self.width}}│")
+            print(line)
         zero_line = f"  0. {self.exit_label}"
-        print(f"│{zero_line:<{self.width}}│")
-        print(f"└{border}┘")
+        print(zero_line)
 
     # ── input handling ────────────────────────────────────────────────────────
 
@@ -94,7 +86,7 @@ class Menu:
     def run(self):
         """Display the menu and block until the user exits."""
         while True:
-            self._render()
+            self.render()
             choice = self.get_choice()
 
             if choice is None:
@@ -158,7 +150,7 @@ def start():
     # ── root menu ─────────────────────────────────────────────────────────────
 
     main_menu = Menu(
-        title="Main Menu  —  Demo",
+        title="Main Menu",
         items=[
             MenuItem("Manage Students",submenu=student_menu),
             MenuItem("Manage Professors",submenu=professor_menu),
@@ -171,4 +163,3 @@ def start():
     print("  Goodbye!\n")
 
 
-#start()
