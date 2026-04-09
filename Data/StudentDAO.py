@@ -80,9 +80,10 @@ def get_student_classes(student_id: int):
         cursor = conn.cursor(dictionary=True)
         cursor.execute(
             """
-            SELECT classes.id,classes.class_name
+            SELECT classes.id,classes.class_name,professors.first_name,professors.last_name
             FROM classes
             JOIN student_courses ON classes.id = student_courses.class_id
+            JOIN professors ON classes.assigned_professor = professors.id
             WHERE student_courses.student_id = %(student_id)s
             """,
             {"student_id":student_id}
