@@ -5,12 +5,9 @@ Student Enrollment Report
 # Student Info
 
 
-Student ID:4 | First Name: Jonathan | Last Name: Urena | Major: Computer Science | Year: Senior
-Email: jonathan@gmail.com
+Student ID:8 | First Name: Harry | Last Name: Jackson | Major: Chemistry | Year: Sophmore
+Email: harryj@gmail.com
 # Course Info
 
 |Class ID|Class Name|Professor|
 | :---: | :---: | :---: |
-|1|Math|Michael Rogers|
-|2|Assembly Language|Lee Koh|
-|3|Chemistry|Michael Rogers|

@@ -13,10 +13,10 @@ Professor ID:1 | First Name: Michael | Last Name: Rogers
 ### Students Enrolled
 
 
-Name :Jonathan | Urena
+Name :Jonathan Urena
 ## Class :Chemistry
 
 ### Students Enrolled
 
 
-Name :Jonathan | Urena
+Name :Jonathan Urena

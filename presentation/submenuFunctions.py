@@ -58,7 +58,7 @@ def updateStudent():
         year: str = input().strip()
         if len(first_name)==0 or len(last_name)==0 or len(major)==0 or len(email)==0 or len(year)==0:
             print("Error: No field can be left blank")
-            return addStudent()
+            return updateStudent()
         updated_student = Student(first_name,last_name,major,email,year)
         student_service.updateById(student_id,updated_student)
     
