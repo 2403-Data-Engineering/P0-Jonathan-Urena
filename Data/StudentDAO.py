@@ -80,7 +80,7 @@ def get_student_classes(student_id: int):
         cursor = conn.cursor(dictionary=True)
         cursor.execute(
             """
-            SELECT classes.class_name
+            SELECT classes.id,classes.class_name
             FROM classes
             JOIN student_courses ON classes.id = student_courses.class_id
             WHERE student_courses.student_id = %(student_id)s

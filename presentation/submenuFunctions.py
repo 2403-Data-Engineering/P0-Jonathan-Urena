@@ -4,10 +4,12 @@ from Models.Classes import Classes
 from Service.StudentService import StudentService
 from Service.ProfessorService import ProfessorService
 from Service.ClassesService import ClassesService
+from Utils.ReportGenerator import ReportGenerator
 
 professor_service = ProfessorService()
 student_service = StudentService()
 classes_service = ClassesService()
+utils = ReportGenerator()
 
 # ── Student methods────────────────────────────────────────────────────────────
 def viewAllStudents():
@@ -75,8 +77,8 @@ def deleteStudent():
     if student_service.findEnrollment(student_id) == True:
         print("Student is currently in classes thus cannot be deleted")
         return deleteStudent()
-    
     student_service.deleteById(student_id)
+
 def viewClassesStudentEnrolled():
     try:
         print("Enter the student's id to view all classes enrolled in")
@@ -88,7 +90,7 @@ def viewClassesStudentEnrolled():
     if student_service.findById(student_id) == None:
         print("Error: Id does not exist in database")
         return viewClassesStudentEnrolled()
-    student_service.findAllClasses(student_id)
+    print(student_service.findAllClasses(student_id))
 
 def enrollStudentInClass():
     try:
@@ -130,7 +132,10 @@ def generateStudentEnrollmentReport():
     except ValueError:
         print("  ⚠  Invalid input — enter a number.")
         return generateStudentEnrollmentReport()
-    #call service
+    if student_service.findById(student_id) == None:
+        print("Error: Id does not exist in database")
+        return generateStudentEnrollmentReport()
+    utils.generateStudentReport(student_id)
 
 # ── Professor methods────────────────────────────────────────────────────────────
 def viewAllProfessors():
